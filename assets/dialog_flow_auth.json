@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "cookitupbot-rsbr",
+  "private_key_id": "da1fd2d0da5e73b1c8072faa1d1e8381a1121996",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDRJlZboG+GvAni\nZ6gqJBo5eLyA5rIgDXkQXMwaKrFLyKHicm8h8RwaZea/IlrVK7RmrEL2ayg/XKc1\nSykRpU5JG0o7NxosS5EJa9FjLvhUgPajoxYl4xSDZWGiqKQoCbxUSUzLPIKyb7lq\npS9GShA/8opVVvksa4tqThtKaC4MaU+YheRRbP7q8mrxKAVDaqjdSuU6XG9kTZ6r\nkBzsI8Ovw7N74t2VQqH2jofJlzxCrKoUdJ7Ov9idcBlHxP0ttUGaU0f6fqQ5DGpe\nFqB12cdHoaza9sPpvcIX73UMLDU8MejacZ0RNz9TUeZGV2jO0DqGcmr7z+VapXbz\nW7qxaO5PAgMBAAECggEAWQlMjzIj+EQ5owAEx3faEChVezx6jQmfRbdzjhopovz0\n6Z1UsSrfD1/dFPYvm/tAj8r6sMOafSrY5eeqwp/QTXAIMGA7TKsYwd175JDc18CU\n/sGRTqy2kV9J6sCHLaJDYdBYmFaYvxSv5vYOQ4qJE2gRutXNOrtHvQgmNw1VuSMg\nPcf6biMznbk32cO2l8s0yeb/lpl8MOKW3CaV0HuTFA9ciFZxO7zGlA0XVEsRDaOZ\ny0DBhM59RDx0WnKBYfv11XEhwaHkK7R5V+VstV55SjU89CIcLW9zcz6goPfQSbXL\nFt4Ci33aSpaPHgL6Wy60wEaBpnuqwX0TBbsyw3npHQKBgQD67eFQN5tYyZpHY3No\n49AM4U+cf2GPa0iBZoZFqonOrAoqnPcTm2Zdt/TBAehUdHU7LYk9FmgwYRyKL8ns\nVBpHaEV0iAN06eyOT3HbXAWMYH8Cu+DXzYH6nSUAxtm+2vHT0n59Go4CGviJBlGa\nwgvZvMx/meLOu+0Gx2fKzMs8AwKBgQDVYFJQy5zKGsj9w2DzrSxgDAqJ+CitgvwP\nZyGwZWpgHiR0aC1nhv0Utf/GkxowtI9CidXOk5a1PFVjgnLgLVhYKmuJWH1JsXSb\nVRVvFZaQDqC00SaEuenp8lwgKPcBRN+ZvTK9zjONa/IoXDSLAWb9+Bt9VANBP9JG\n7/3cWgFAxQKBgQCahvnVM5lYMTbwNZ9x/bE27V3gi1ViQ/gvsBqKNn6NJsdP/L/v\ndCizGEECxxDzSZCUM/OrCex5tqQjuVBJWHWieeUj4Ur3qcMC1IvSQbYs/5PX9Cl/\n3E/qLPIHq22WqjB4eM1qb3r6cu+ROrHwcwVnPmxVPEg/dd1+6jfR3RJfTwKBgFiN\nNtwtBA6j+xHFSbEXBzl9BcqoYElR+MVzqXmJPRJSsBJXQbCbRuCXf2Srm8zmwiV9\nCmxGt97TASTg+EesyeMdB6/iN2yj5p6oOtL1BJ0YVP11ZyTh+v+KA02dcpTmPl2R\nNUOsFZz1VXQGgA/ILzPrCY2Dli44DE5APvx5pdd5AoGBAM9FoYO2WggjPRB0BrfR\nF0h6sdo08/8bcM8WpOjzlN2d/8zDZ1yj1eVvq8AOWDht7uN3JimcmDpRmBxjZN3b\nwJHKbdWc4sPjsQGmr0+6w5w82wlO6PMzVzZ3SnDIgYuyVZn0sISrhdOhYTWAEB5/\nEm9ri4rVaaJCHIYfMxDoMpRY\n-----END PRIVATE KEY-----\n",
+  "client_email": "cookitupbot@cookitupbot-rsbr.iam.gserviceaccount.com",
+  "client_id": "107292475913480262705",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cookitupbot%40cookitupbot-rsbr.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
