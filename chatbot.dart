@@ -47,25 +47,32 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             Expanded(child: MessagesScreen(messages: messages)),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              color: Color.fromARGB(255, 71, 119, 74),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 71, 119, 74),
+                borderRadius: BorderRadius.circular(
+                    17), // Set border radius to make sides rounded
+              ),
               child: Row(
                 children: [
                   Expanded(
                     child: TextField(
                       controller: _controller,
-                      style: TextStyle(
-                          color: const Color.fromARGB(255, 76, 76, 76)),
+                      style: TextStyle(color: Color.fromARGB(255, 41, 41, 41)),
                       decoration: InputDecoration(
                         hintText: 'Message CookItUp...',
                         hintStyle: TextStyle(
                           color: Colors.white70,
                         ),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal:
+                                20), // Move text a little bit to the right
+                        border: InputBorder.none,
                       ),
                       onSubmitted: (String text) {
                         sendMessage(text);
                         _controller.clear();
                       },
+                      autofocus: true,
                     ),
                   ),
                   IconButton(
@@ -74,6 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       _controller.clear();
                     },
                     icon: Icon(Icons.send),
+                    color: Colors.white70,
                   )
                 ],
               ),
@@ -167,25 +175,36 @@ class _ChatScreenState extends State<ChatScreen> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
-              title: Text('Enter your response'),
+              title: Text(
+                'Customize your meal plan',
+                style: TextStyle(fontSize: 18), // Reduce the text size
+              ),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   TextField(
                     controller: controller,
+                    style: TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       hintText: 'Enter "day" or "week"',
+                      hintStyle: TextStyle(color: Colors.black),
                     ),
+                    autofocus: true,
                   ),
                   SizedBox(height: 20),
                   DropdownButton<String>(
-                    hint: Text('Select your diet'),
+                    hint: Text('Select your diet',
+                        style: TextStyle(color: Colors.black)),
                     value: selectedDiet,
                     onChanged: (String? newValue) {
                       setState(() {
                         selectedDiet = newValue;
                       });
                     },
+                    dropdownColor: Color.fromARGB(255, 175, 187, 163),
+                    focusColor: Colors
+                        .transparent, // Set focus color to transparent to remove highlighting effect
+                    focusNode: FocusNode(skipTraversal: true),
                     items: <String>[
                       'Gluten Free',
                       'Ketogenic',
@@ -209,13 +228,14 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               actions: <Widget>[
                 TextButton(
-                  child: Text('Cancel'),
+                  child:
+                      Text('Cancel', style: TextStyle(color: Colors.grey[700])),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                 ),
                 TextButton(
-                  child: Text('OK'),
+                  child: Text('OK', style: TextStyle(color: Colors.grey[700])),
                   onPressed: selectedDiet == null
                       ? null // Disable the button if no option is selected
                       : () {
@@ -226,6 +246,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                 ),
               ],
+              backgroundColor: Colors.lightGreen[100],
             );
           },
         );
