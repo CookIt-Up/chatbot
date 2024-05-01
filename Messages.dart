@@ -39,7 +39,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   ),
                   constraints: BoxConstraints(maxWidth: w * 2 / 3),
                   child: Text(
-                    'Welcome to the meal planning chatbot! Start by entering your desired target calories.',
+                    "Welcome to CookItUp meal planner chatbot! Let's start the meal planning journey by setting your desired calorie target!.",
                   ),
                 ),
               ],
