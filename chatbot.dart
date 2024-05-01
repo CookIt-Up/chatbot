@@ -270,7 +270,7 @@ class _ChatScreenState extends State<ChatScreen> {
       print(diet);
       final response = await http.get(
         Uri.parse(
-          'https://api.spoonacular.com/mealplanner/generate?timeFrame=$timeFrame&Calories=$extractedNumber&diet=$diet&maxFat=$maxFat&apiKey=$apiKey',
+          'https://api.spoonacular.com/mealplanner/generate?timeFrame=$timeFrame&targetCalories=$extractedNumber&diet=$diet&maxFat=$maxFat&apiKey=$apiKey',
         ),
       );
 
