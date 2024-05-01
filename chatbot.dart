@@ -56,6 +56,16 @@ class _ChatScreenState extends State<ChatScreen> {
                       controller: _controller,
                       style: TextStyle(
                           color: const Color.fromARGB(255, 76, 76, 76)),
+                      decoration: InputDecoration(
+                        hintText: 'Message CookItUp...',
+                        hintStyle: TextStyle(
+                          color: Colors.white70,
+                        ),
+                      ),
+                      onSubmitted: (String text) {
+                        sendMessage(text);
+                        _controller.clear();
+                      },
                     ),
                   ),
                   IconButton(
@@ -101,6 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
           // Extract the number from the text
           final extractedNumber = double.tryParse(text);
           if (extractedNumber != null) {
+            // _controller.clear();
             setState(() {
               addMessage(
                   Message(
@@ -108,8 +119,23 @@ class _ChatScreenState extends State<ChatScreen> {
                     'Would you like the meal plan for a day or a week?'
                   ])),
                   false);
+              final String cleanedText =
+                  text.replaceAll(RegExp(r'\b\d+\b'), '');
+              _controller.text = cleanedText;
+              text = cleanedText; // Update the text variable
+              _controller.clear();
             });
-            //fetchSpoonacularData('', extractedNumber);
+
+            //  await handleUserInput(_controller.text, extractedNumber);
+            // Wait for the user's response
+            // print(cleanedText);
+
+            Map<String, dynamic> response = await getUserResponse();
+            String userResponse = response['response'];
+            String diet = response['diet'];
+
+            // Handle the user's response
+            await handleUserInput(userResponse, extractedNumber, diet);
           } else {
             // If parsing fails, continue with Dialogflow
             await fetchDialogFlowResponse(text);
@@ -118,7 +144,7 @@ class _ChatScreenState extends State<ChatScreen> {
           // Check if the message is "day" or "week"
           final lowerCaseText = text.trim().toLowerCase();
           if (lowerCaseText == 'day' || lowerCaseText == 'week') {
-            handleUserInput(lowerCaseText);
+            handleUserInput(lowerCaseText, 200, 'vegan');
           } else {
             // If the message is neither a number, "day", nor "week", continue with Dialogflow
             await fetchDialogFlowResponse(text);
@@ -128,7 +154,89 @@ class _ChatScreenState extends State<ChatScreen> {
     }
   }
 
-  Future<void> handleUserInput(String response) async {
+  Future<Map<String, dynamic>> getUserResponse() async {
+    // Initialize the response variables
+    String? userResponse;
+    String? selectedDiet;
+
+    // Show a dialog with a text input field and a dropdown for diet selection
+    Map<String, dynamic>? response = await showDialog<Map<String, dynamic>>(
+      context: context,
+      builder: (BuildContext context) {
+        final TextEditingController controller = TextEditingController();
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: Text('Enter your response'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      hintText: 'Enter "day" or "week"',
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  DropdownButton<String>(
+                    hint: Text('Select your diet'),
+                    value: selectedDiet,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedDiet = newValue;
+                      });
+                    },
+                    items: <String>[
+                      'Gluten Free',
+                      'Ketogenic',
+                      'Vegetarian',
+                      'Lacto-Vegetarian',
+                      'Ovo-Vegetarian',
+                      'Vegan',
+                      'Pescetarian',
+                      'Paleo',
+                      'Primal',
+                      'Low FODMAP',
+                      'Whole30'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text('OK'),
+                  onPressed: selectedDiet == null
+                      ? null // Disable the button if no option is selected
+                      : () {
+                          Navigator.of(context).pop({
+                            'response': controller.text.trim().toLowerCase(),
+                            'diet': selectedDiet,
+                          });
+                        },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+    // Return the user's response
+    return response ?? {'response': '', 'diet': ''};
+  }
+
+  Future<void> handleUserInput(
+      String response, double extractedNumber, String diet) async {
     String timeFrame = '';
 
     // Convert the response to lowercase for consistency
@@ -139,28 +247,30 @@ class _ChatScreenState extends State<ChatScreen> {
       timeFrame = lowerCaseResponse;
 
       // Fetch meals based on the selected time frame
-      await fetchSpoonacularData(timeFrame, null);
+      await fetchSpoonacularData(timeFrame, extractedNumber, diet);
     } else {
       // If the response is neither "day" nor "week", inform the user that the response is invalid
       addMessage(
         Message(
             text: DialogText(
-                text: ['Invalid response. Please choose "day" or "week".'])),
+                text: ['Response cancelled.Enter calorie for diet plan'])),
         false,
       );
     }
   }
 
   Future<void> fetchSpoonacularData(
-      String timeFrame, double? extractedNumber) async {
+      String timeFrame, double? extractedNumber, String diet) async {
     try {
       final String apiKey =
           'ff15ea2a66ad401ab0aa564496ceaaa6'; // Replace with your Spoonacular API key
       final int maxFat = 25;
       print(extractedNumber);
+      print(timeFrame);
+      print(diet);
       final response = await http.get(
         Uri.parse(
-          'https://api.spoonacular.com/mealplanner/generate?timeFrame=$timeFrame&Calories=$extractedNumber&maxFat=$maxFat&apiKey=$apiKey',
+          'https://api.spoonacular.com/mealplanner/generate?timeFrame=$timeFrame&Calories=$extractedNumber&diet=$diet&maxFat=$maxFat&apiKey=$apiKey',
         ),
       );
 
