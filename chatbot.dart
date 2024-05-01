@@ -102,7 +102,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
       // Check if the message contains "okay" or "ok"
       if (text.toLowerCase().contains('okay') ||
-          text.toLowerCase().contains('ok')) {
+          text.toLowerCase().contains('ok') ||
+          text.toLowerCase() == 'k' ||
+          text.toLowerCase() == 'kk') {
         // Ask for the target calories
         setState(() {
           addMessage(
@@ -273,8 +275,9 @@ class _ChatScreenState extends State<ChatScreen> {
       // If the response is neither "day" nor "week", inform the user that the response is invalid
       addMessage(
         Message(
-            text: DialogText(
-                text: ['Response cancelled.Enter calorie for diet plan'])),
+            text: DialogText(text: [
+          'Response cancelled. Please enter your calorie goal for the diet plan.'
+        ])),
         false,
       );
     }
